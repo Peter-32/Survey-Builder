@@ -1,0 +1,69 @@
+body {
+	font: 20px;
+	font-family: helvetica, sans-serif
+}
+
+#menuContainer {	
+	left: 100px;
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menuItem {
+	text-align: center;
+}
+
+.centerContainer {
+	left: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.centeredList {
+	text-align: center;
+	list-style-type: none;
+}
+
+.createQuestionsContainer {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#executeTheQuiz {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.question {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;	
+}
+
+.answerChoiceContainer {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#completionProgressDiv {
+    position:relative;
+    float:right;
+    padding-left: 10px;
+}
+
+.container {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 30px;
+}
+
+#ContinueContainer {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
