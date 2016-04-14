@@ -3,8 +3,15 @@ var main = function() {
 	//// Define Variables
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	var storeQuestions;
-	
+	var surveyQuestionsAnswers = [];
+	var form1 = document.form1;
+	var form2 = document.form2;
+	var surveyTitle = form1.surveyTitle;
+	backgroundColor
+	headerBackgroundColor
+	buttonColor
+	ExecuteSurvey
+	answerChoicesRadio
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Initialize UI
@@ -12,11 +19,9 @@ var main = function() {
 	
 	// Initially hide the question HTML
 	$('.form2').hide();
-	
-	
-	
-	// Start the quiz once "Execute the Quiz" is clicked on.
-	$('#executeTheQuiz').click(function() {
+
+	// Start the survey once "Execute the Survey" is clicked on.
+	$('#executeTheSurveyButton').click(function() {
 		$('.form1').hide();
 		$('.form2').show();
 	});
@@ -25,13 +30,13 @@ var main = function() {
 	//// Defining Functions and Callback Functions
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Purpose: Fills the storeQuestions array once the users clicks on "Execute the Quiz".
+	// Purpose: Fills the surveyQuestionsAnswers array once the users clicks on "Execute the Survey".
 	// This is an array of objects.
 	var fillStoreQuestionsArray = function() {
-	
+		
 	};
 	
-	// Purpose: Assign the classes to elements once the user clicks on "Execute the Quiz".
+	// Purpose: Assign the classes to elements once the user clicks on "Execute the Survey".
 	var setUpSurveyCSS = function() {
 	
 	};
@@ -42,7 +47,13 @@ var main = function() {
 	};
 	
 	// Purpose: Define the values in the progress bar based on how many questions there are.
+	var
 	
+	// Purpose: To test printing out the question and answer text box to the screen
+	var testPrintQuestionAnswerString = function() {
+		
+	
+	};
 	
 	
 	

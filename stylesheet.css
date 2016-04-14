@@ -3,67 +3,58 @@ body {
 	font-family: helvetica, sans-serif
 }
 
-#menuContainer {	
-	left: 100px;
-	width: 300px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.menuItem {
+.title {
 	text-align: center;
 }
 
-.centerContainer {
-	left: 0px;
-	margin-left: auto;
-	margin-right: auto;
+/* Start of form1 */
+
+.configurationsItem {
+	text-align: center;
 }
 
-.centeredList {
+#howToUseSurveyBuilder {
 	text-align: center;
 	list-style-type: none;
 }
 
-.createQuestionsContainer {
+#createQuestionsDiv {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
 
-#executeTheQuiz {
+#executeTheSurveyBtnDiv {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
+/* End of form1 */
 
-.question {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;	
-}
-
-.answerChoiceContainer {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
+/* Start of form2 */
 #completionProgressDiv {
-    position:relative;
-    float:right;
-    padding-left: 10px;
-}
-
-.container {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	height: 30px;
 }
 
-#ContinueContainer {
+#completionProgressDiv2 {
+    position:relative;
+    float:right;
+    padding-left: 10px;
+}
+
+.answerChoiceDiv {
+    position:relative;
+	left: 5%;
+	text-align: left;
+}
+
+#continueBtnDiv {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
+
+/* End of form2 */

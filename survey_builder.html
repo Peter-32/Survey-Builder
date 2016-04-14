@@ -7,48 +7,50 @@
 	</head>
 	<body>
 		<form id="form1" name="form1" class="form1">
-			<div id="block1"></div>
-			<div id="menuContainer">
-				<div class="menuItem" id="firstItem">
-					<label for="font" >Font</label>
-					<select size="1" name="font">
-						<option value='Arial' selected>Arial
-						<option value='"Arial Black"' >Arial Black
-						<option value='"Comic Sans MS"' >Comic Sans MS
-						<option value="Impact" >Impact
-						<option value='"Lucida Sans Unicode"' >Lucida Sans Unicode
-						<option value='Tahoma' >Tahoma
-					</select>
-				</div>
-				<div class="menuItem">
-					<label for="fontSize">Font Size</label>
-					<select size="1" name="fontSize">
-						<option value='12px' >Small
-						<option value='16px' selected>Medium
-						<option value='20px' >Large
-					</select>		
-				</div>
-				<div class="menuItem">	
-					<label for="background">Background</label>
-					<input type="text" name="background" size="7" maxlength="7" placeholder="#FFFFFF" />
-				</div>
-				<div class="menuItem">
-					<label for="headerBackground">Header Background</label>
-					<input type="text" name="headerBackground" size="7" maxlength="7" placeholder="#0066FF" />
-				</div>
-				<div class="menuItem">
-					<label for="buttonColor">Button Color</label>
-					<input type="text" name="buttonColor" size="7" maxlength="7" placeholder="#0066FF" />
-				</div>			
+			<h2 class="title">Survey-Builder</h2>
+			<div class="configurationsItem" id="firstItem">
+				<label for="surveyTitle">Survey Title</label>
+				<input type="text" name="surveyTitle" size="20" maxlength="255" placeholder="" />
 			</div>
-			<div class="centerContainer">
-				<ul class="centeredList">
-					<li>Format your questions as seen below.</li>
-					<li>Include one empty row between the question and choices</li>
-					<li>and one empty row between the last choice and the next question</li>
-				</ul>
-				<div class="createQuestionsContainer">
-					<textarea name="textAreaQuestion" cols="40" rows="20">This is where you put your question.
+			<div class="configurationsItem" id="firstItem">
+				<label for="font" >Font</label>
+				<select size="1" name="font">
+					<option value='Arial' selected>Arial
+					<option value='"Arial Black"' >Arial Black
+					<option value='"Comic Sans MS"' >Comic Sans MS
+					<option value="Impact" >Impact
+					<option value='"Lucida Sans Unicode"' >Lucida Sans Unicode
+					<option value='Tahoma' >Tahoma
+				</select>
+			</div>
+			<div class="configurationsItem">
+				<label for="fontSize">Font Size</label>
+				<select size="1" name="fontSize">
+					<option value='12px' >Small
+					<option value='16px' selected>Medium
+					<option value='20px' >Large
+				</select>		
+			</div>
+			<div class="configurationsItem">	
+				<label for="backgroundColor">Background Color</label>
+				<input type="text" name="backgroundColor" size="7" maxlength="7" placeholder="#FFFFFF" />
+			</div>
+			<div class="configurationsItem">
+				<label for="headerBackgroundColor">Header Background Color</label>
+				<input type="text" name="headerBackgroundColor" size="7" maxlength="7" placeholder="#0066FF" />
+			</div>
+			<div class="configurationsItem">
+				<label for="buttonColor">Button Color</label>
+				<input type="text" name="buttonColor" size="7" maxlength="7" placeholder="#0066FF" />
+			</div>			
+
+			<ul id="howToUseSurveyBuilder">
+				<li>Format your questions as seen below.</li>
+				<li>Include one empty row between the question and choices</li>
+				<li>and one empty row between the last choice and the next question</li>
+			</ul>
+			<div id="createQuestionsDiv">
+				<textarea name="textAreaQuestion" cols="40" rows="20">This is where you put your question.
 
 Choice A here
 Choice B here
@@ -63,35 +65,35 @@ Choice C here
 Choice D here
 
 Next question here, etc.</textArea>
-				</div>
-				<div id="executeTheQuiz">
-					<input type="button" value="Execute the Quiz" name="ExecuteQuiz" />
-				</div>	
 			</div>
+			<div id="executeTheSurveyBtnDiv">
+				<input type="button" value="Execute the Survey" name="ExecuteSurvey" id="executeTheSurveyButton" />
+			</div>	
 		</form>
 			
 			
 		<form id="form2" name="form2" class="form2">
-			<div class="container">
-				<div id="completionProgressDiv">
-					Quiz Completion Progress: 
+			<h2 class="title">Survey Title</h2>
+			<div id="completionProgressDiv">
+				<div id="completionProgressDiv2">
+					Survey Completion Progress: 
 					<progress id="completionProgress" max="5" value="0"></progress>
 				</div>
 			</div>
-			<div class="question">
-				<p>This will show once executed.  Replace for each question.  Save all answers, no scoring at the end.</p>
+			<div id="question" class="title">
+				<h2>This will show once executed.  Replace for each question.  Save all answers, no scoring at the end.</h2>
 			</div>
-			<div class="answerChoiceContainer">
-				<input type="radio" name="answerChoices" value="A" />
-				<span class="answerChoiceAText answerChoice">Text A</span>
-				<input type="radio" name="answerChoices" value="B" />
-				<span class="answerChoiceBText answerChoice">Text B</span>
-				<input type="radio" name="answerChoices" value="C" />
-				<span class="answerChoiceCText answerChoice">Text C</span>
-				<input type="radio" name="answerChoices" value="D" />
-				<span class="answerChoiceDText answerChoice">Text D</span>
+			<div class="answerChoiceDiv">
+				<input type="radio" name="answerChoicesRadio" value="A" />
+				<label class="answerChoiceAText answerChoice">Text A</label><p></p>
+				<input type="radio" name="answerChoicesRadio" value="B" />
+				<label class="answerChoiceBText answerChoice">Text B</label><p></p>
+				<input type="radio" name="answerChoicesRadio" value="C" />
+				<label class="answerChoiceCText answerChoice">Text C</label><p></p>
+				<input type="radio" name="answerChoicesRadio" value="D" />
+				<label class="answerChoiceDText answerChoice">Text D</label><p></p>
 			</div>
-			<div id="ContinueContainer">
+			<div id="continueBtnDiv">
 				<input type="button" value="Continue" name="Continue" />
 			</div>	
 		</form>
