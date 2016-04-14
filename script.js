@@ -11,6 +11,7 @@ var form2 = document.form2;
 var surveyTitle = form1.surveyTitle;
 var backgroundColor = form1.backgroundColor;
 var headerBackgroundColor = form1.headerBackgroundColor;
+var buttonColor = form1.fontColor;
 var buttonColor = form1.buttonColor;
 var textAreaQuestion = form1.textAreaQuestion;
 var ExecuteSurvey = form1.ExecuteSurvey;
@@ -49,7 +50,7 @@ var fillSurveyQuestionsAnswers = function() {
 	}
 };
 
-// Update the questions and answers.
+//// Update the questions and answers.
 var updateQuestionsAnswers = function(questionNumber) {
 	document.getElementById('question').innerHTML = surveyQuestionsAnswers[questionNumber-1].question;
 	document.getElementById('answerChoiceAText').innerHTML = surveyQuestionsAnswers[questionNumber-1].answers[0];
@@ -60,17 +61,44 @@ var updateQuestionsAnswers = function(questionNumber) {
 
 // Purpose: Assign the classes to elements once the user clicks on "Execute the Survey".
 var setUpSurveyCSS = function() {
+	var form1 = document.form1;
+	var form2 = document.form2;
+	var surveyTitle = form1.surveyTitle;
+	var backgroundColor = form1.backgroundColor;
+	var headerBackgroundColor = form1.headerBackgroundColor;
+	var buttonColor = form1.buttonColor;
+	var textAreaQuestion = form1.textAreaQuestion;
 	
+	var headers = document.querySelectorAll("h2");
+	for (var i = 0; i < headers.length; i++) {
+		headers[i].style.backgroundColor=headerBackgroundColor.value;
+	}
+	document.body.style.backgroundColor=backgroundColor.value;
 };
 
 // Purpose: Get the labels near each radio button to check the radio button.
 var turnOnRadioButton = function() {
-
+	
 };
 
-// Purpose: Define the values in the progress bar based on how many questions there are.
+//// Purpose: Define the values in the progress bar based on how many questions there are.
+var progressBarUpdate = function(totalNumberOfQuestions, questionNumber) {
+	var completionProgress = document.getElementById("completionProgress");
+	//Update max if on the first question
+	if (questionNumber=1)
+		completionProgress.setAttribute("max", totalNumberOfQuestions);
+	completionProgress.value++;
+};
 
+// Purpose: Check if the user asked at least one question (a minimum of 6 new line characters used)
+var userInputValidationMinimumQuestions = function() {
+	
+};
 
+// Purpose: Show the results of the survey
+var showResults = function() {
+
+};
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Main Event Listeners and Function Calls
@@ -82,12 +110,17 @@ ExecuteSurvey.addEventListener("click", function() {
 	form1.style.display = 'none';
 	fillSurveyQuestionsAnswers();
 	updateQuestionsAnswers(1);
+	setUpSurveyCSS();
 });
 
 Continue.addEventListener("click",function() {
-
+	progressBarUpdate(surveyQuestionsAnswers.length, questionNumber);
+	questionNumber++;
+	if (surveyQuestionsAnswers.length <= questionNumber)
+		updateQuestionsAnswers(questionNumber);	
+	else
+		showResults();
 }); 
-
 
 
 

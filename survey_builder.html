@@ -9,11 +9,11 @@
 		<form id="form1" name="form1" class="form1">
 			<h2 class="title">Survey-Builder</h2>
 			<div class="configurationsItem" id="firstItem">
-				<label for="surveyTitle">Survey Title</label>
+				<label for="surveyTitle">Survey Title:</label>
 				<input type="text" name="surveyTitle" value="Survey" size="20" maxlength="255" placeholder="" />
 			</div>
 			<div class="configurationsItem" id="firstItem">
-				<label for="font" >Font</label>
+				<label for="font" >Font:</label>
 				<select size="1" name="font">
 					<option value='Arial' selected>Arial
 					<option value='"Arial Black"' >Arial Black
@@ -25,7 +25,7 @@
 				</select>
 			</div>
 			<div class="configurationsItem">
-				<label for="fontSize">Font Size</label>
+				<label for="fontSize">Font Size:</label>
 				<select size="1" name="fontSize">
 					<option value='12px' >Small
 					<option value='16px' selected>Medium
@@ -33,15 +33,19 @@
 				</select>		
 			</div>
 			<div class="configurationsItem">	
-				<label for="backgroundColor">Background Color</label>
-				<input type="text" name="backgroundColor" size="7" maxlength="7" placeholder="#FFFFFF" />
+				<label for="backgroundColor">Background Color:</label>
+				<input type="text" name="backgroundColor" size="7" maxlength="7" placeholder="#80ccff" value="#80ccff" />
 			</div>
 			<div class="configurationsItem">
-				<label for="headerBackgroundColor">Header Background Color</label>
-				<input type="text" name="headerBackgroundColor" size="7" maxlength="7" placeholder="#0066FF" />
+				<label for="headerBackgroundColor">Header Background Color:</label>
+				<input type="text" name="headerBackgroundColor" size="7" maxlength="7" placeholder="#006bb3" value="#006bb3" />
 			</div>
 			<div class="configurationsItem">
-				<label for="buttonColor">Button Color</label>
+				<label for="fontColor">Font Color:</label>
+				<input type="text" name="fontColor" size="7" maxlength="7" placeholder="#0066FF" />
+			</div>
+			<div class="configurationsItem">
+				<label for="buttonColor">Button Color:</label>
 				<input type="text" name="buttonColor" size="7" maxlength="7" placeholder="#0066FF" />
 			</div>			
 
@@ -74,11 +78,11 @@ Next question here, etc.</textArea>
 			
 			
 		<form id="form2" name="form2" class="form2">
-			<h2 class="title">Survey Title</h2>
+			<h2 class="title" >Survey Title</h2>
 			<div id="completionProgressDiv">
 				<div id="completionProgressDiv2">
 					Survey Completion Progress: 
-					<progress id="completionProgress" max="5" value="0"></progress>
+					<progress id="completionProgress" value="0"></progress>
 				</div>
 			</div>
 			<h2 id="question" class="title">This will show once executed.  Replace for each question.  Save all answers, no scoring at the end.</h2>

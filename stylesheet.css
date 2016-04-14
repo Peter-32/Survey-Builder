@@ -1,9 +1,20 @@
 /* Start of main formats */
 body {
-	font: 20px;
+	font-size: 2em;
 	font-family: helvetica, sans-serif
 }
 
+input {
+	font-size: .8em;
+}
+
+label {
+	padding-right: 10px;
+}
+
+textarea {
+	font-size: .8em;
+}
 .title {
 	text-align: center;
 }
