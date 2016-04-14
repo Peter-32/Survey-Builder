@@ -2,9 +2,10 @@
 	//// Define Variables
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// MOVE THESE INTO FUNCTIONS WHEN DONE!!  Except global variables that will be kept.
+// Ideally these wouldn't be global.
+// questionNumber is passed in to some functions even though it is global.
 var surveyQuestionsAnswers = [];
-var questionNumber;
+var questionNumber = 1;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Initialize UI
@@ -18,8 +19,9 @@ form2.style.display = 'none';
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //// Purpose: Fills the surveyQuestionsAnswers array once the users clicks on "Execute the Survey".
-//// This is an array of objects.
+//// This is an array of objects and will only be filled once.
 var fillSurveyQuestionsAnswers = function() {
+	var textAreaQuestion = form1.textAreaQuestion;
 	var surveyQuestionsAnswersObject;
 	var trimTextAreaQuestionValue = textAreaQuestion.value.trim();
 	// New lines identify the questions & answers
@@ -72,18 +74,17 @@ var setUpSurveyOptions = function() {
 		buttons[i].style.color="white";
 		buttons[i].style.backgroundColor=buttonColor.value;
 		buttons[i].style.fontSize=fontSize.value * 0.4
-		buttons[i].style.fontFamily=fontFamily.value * 0.4
+		buttons[i].style.fontFamily=fontFamily.value
 	}	
 };
 
 //// Purpose: Get the labels near each radio button to check the radio button.
 var turnOnRadioButton = function() {
 	var radioButton;
-	if (this.firstChild.nodeType == 1) {
+	if (this.firstChild.nodeType == 1)
 		radioButton = this.firstChild;
-	} else {
+	else
 		radioButton = this.firstChild.nextSibling;
-	}
 	radioButton.checked="checked";
 };
 
@@ -104,41 +105,92 @@ var progressBarUpdate = function(totalNumberOfQuestions, questionNumber) {
 	completionProgress.value++;
 };
 
+//// Purpose: Don't let the user proceed until choosing a radio box.  Return true if there is a value checked, false otherwise
+var hasCheckedABox = function() {
+	var radios = form2.answerChoicesRadio;
+	for (var index = 0; index < radios.length; index++) {
+		if (radios[index].checked) {
+			//If checked then store the user's answer choice in property "choice"
+			return true;
+		}
+	}
+	return false;
+};
+
 // Purpose: Check if the user asked at least one question (a minimum of 6 new line characters used)
 var userInputValidationMinimumQuestions = function() {
 	
 };
 
+// Purpose: Stores the choice made by the user and unchecks the radio button.
+var storeAnswerChoiceAndUncheck = function(questionNumber) {
+	var radios = form2.answerChoicesRadio;
+	var currentQuestion = surveyQuestionsAnswers[questionNumber-1]
+	for (var index = 0; index < radios.length; index++) {
+		if (radios[index].checked) {
+			//If checked then store the user's answer choice in property "choice"
+			if (radios[index].nextSibling.nodeType == 1)
+				currentQuestion.choice = radios[index].nextSibling.textContent;
+			else
+				currentQuestion.choice = radios[index].nextSibling.nextSibling.textContent;
+			radios[index].checked = "";
+		}
+	}
+};
+
 // Purpose: Show the results of the survey
 var showResults = function() {
-
+	var h4Element;
+	var text;
+	
+	// Change header where the question was previously.
+	document.getElementById('question').innerHTML='Results:';
+	// Remove the choices and the button
+	document.getElementById('answerChoiceDiv').style.display = 'none';
+	document.getElementById('continueBtnDiv').style.display = 'none';
+	// Add the results
+	for (var i = 0; i < surveyQuestionsAnswers.length; i++) {
+		h4Element = document.createElement("h4");
+		text = document.createTextNode(surveyQuestionsAnswers[i].question + "	" + 
+									   surveyQuestionsAnswers[i].choice);
+		h4Element.appendChild(text);
+		document.body.appendChild(h4Element);
+	}
+	
 };
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Main Event Listeners and Function Calls
 	////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-// Start the survey once "Execute the Survey" is clicked on.
-ExecuteSurvey.addEventListener("click", function() {
+//// Start the survey once "Execute the Survey" is clicked on.  This will only be clicked once.
+document.form1.ExecuteSurvey.addEventListener("click", function() {
 	form2.style.display = 'block';
 	form1.style.display = 'none';
 	fillSurveyQuestionsAnswers();
-	updateQuestionsAnswers(1);
+	updateQuestionsAnswers(questionNumber); // always question number 1
 	setUpSurveyOptions();
 	setEventListenersForRadioButtonLabels();
 });
 
-Continue.addEventListener("click",function() {
-	progressBarUpdate(surveyQuestionsAnswers.length, questionNumber);
-	questionNumber++;
-	if (surveyQuestionsAnswers.length <= questionNumber)
-		updateQuestionsAnswers(questionNumber);	
-	else
-		showResults();
+// This takes you to the next question.
+document.form2.Continue.addEventListener("click",function() {
+	if (hasCheckedABox()) { // If true then proceed.
+		// Store the answer and uncheck
+		storeAnswerChoiceAndUncheck(questionNumber)
+		// Passing in total number of questions to the progress bar to get the maximum value.
+		progressBarUpdate(surveyQuestionsAnswers.length, questionNumber);
+		// Next question
+		questionNumber++;
+		// Are we finished?
+		if (questionNumber <= surveyQuestionsAnswers.length)
+			// Update the questions
+			updateQuestionsAnswers(questionNumber);	
+		else
+			showResults();
+	} else 					//Otherwise the user is alerted.
+		alert('Please choose an answer before preceding.');	
 }); 
-
-
-
 
 
 /*
@@ -157,5 +209,5 @@ var textAreaQuestion = form1.textAreaQuestion;
 var ExecuteSurvey = form1.ExecuteSurvey;
 var question = document.getElementById('question');
 var answerChoicesRadio = form1.answerChoicesRadio;
-var Continue = form2.Continue;
+var Continue = form2.Continue; 
 */
