@@ -13,23 +13,26 @@
 				<input type="text" name="surveyTitle" value="Survey" size="20" maxlength="255" placeholder="" />
 			</div>
 			<div class="configurationsItem" id="firstItem">
-				<label for="font" >Font:</label>
-				<select size="1" name="font">
-					<option value='Arial' selected>Arial
-					<option value='"Arial Black"' >Arial Black
-					<option value='"Comic Sans MS"' >Comic Sans MS
-					<option value="Impact" >Impact
-					<option value="Helvetica" >Helvetica
-					<option value='"Lucida Sans Unicode"' >Lucida Sans Unicode
-					<option value='Tahoma' >Tahoma
+				<label for="fontFamily" >Font Family:</label>
+				<select size="1" name="fontFamily">
+					<option value='arial' selected>Arial
+					<option value='arial black' >Arial Black
+					<option value='comic sans ms' >Comic Sans MS
+					<option value='cursive' >Cursive
+					<option value='fantasy' >Fantasy
+					<option value='helvetica' >Helvetica
+					<option value="impact" >Impact
+					<option value='lucida sans unicode' >Lucida Sans Unicode
+					<option value='monospace' >Monospace
+					<option value='tahoma' >Tahoma
 				</select>
 			</div>
 			<div class="configurationsItem">
 				<label for="fontSize">Font Size:</label>
 				<select size="1" name="fontSize">
-					<option value='12px' >Small
-					<option value='16px' selected>Medium
-					<option value='20px' >Large
+					<option value='1.4em' >Small
+					<option value='2em' selected>Medium
+					<option value='2.6em' >Large
 				</select>		
 			</div>
 			<div class="configurationsItem">	
@@ -42,11 +45,11 @@
 			</div>
 			<div class="configurationsItem">
 				<label for="fontColor">Font Color:</label>
-				<input type="text" name="fontColor" size="7" maxlength="7" placeholder="#0066FF" />
+				<input type="text" name="fontColor" size="7" maxlength="7" placeholder="#FFFFFF" value="#FFFFFF" />
 			</div>
 			<div class="configurationsItem">
 				<label for="buttonColor">Button Color:</label>
-				<input type="text" name="buttonColor" size="7" maxlength="7" placeholder="#0066FF" />
+				<input type="text" name="buttonColor" size="7" maxlength="7" placeholder="#80FFC1" value="#80FFC1" />
 			</div>			
 
 			<ul id="howToUseSurveyBuilder">
@@ -72,13 +75,13 @@ Choice D here
 Next question here, etc.</textArea>
 			</div>
 			<div id="executeTheSurveyBtnDiv">
-				<input type="button" value="Execute the Survey" name="ExecuteSurvey" />
+				<input type="button" value="Execute the Survey" name="ExecuteSurvey" class="button"/>
 			</div>	
 		</form>
 			
 			
 		<form id="form2" name="form2" class="form2">
-			<h2 class="title" >Survey Title</h2>
+			<h2 class="title" id="surveyTitle" >Survey Title</h2>
 			<div id="completionProgressDiv">
 				<div id="completionProgressDiv2">
 					Survey Completion Progress: 
@@ -87,17 +90,25 @@ Next question here, etc.</textArea>
 			</div>
 			<h2 id="question" class="title">This will show once executed.  Replace for each question.  Save all answers, no scoring at the end.</h2>
 			<div class="answerChoiceDiv">
-				<input type="radio" name="answerChoicesRadio" value="A" />
-				<label id="answerChoiceAText" class="answerChoice">Text A</label><p></p>
+				<p class="answerChoice">
+					<input type="radio" name="answerChoicesRadio" value="A" />
+					<label id="answerChoiceAText" >Text A</label>
+				</p>
+				<p class="answerChoice">
 				<input type="radio" name="answerChoicesRadio" value="B" />
-				<label id="answerChoiceBText" class="answerChoice">Text B</label><p></p>
+				<label id="answerChoiceBText" >Text B</label><p></p>
+				</p>
+				<p class="answerChoice">
 				<input type="radio" name="answerChoicesRadio" value="C" />
-				<label id="answerChoiceCText" class="answerChoice">Text C</label><p></p>
+				<label id="answerChoiceCText" >Text C</label><p></p>
+				</p>
+				<p class="answerChoice">
 				<input type="radio" name="answerChoicesRadio" value="D" />
-				<label id="answerChoiceDText" class="answerChoice">Text D</label><p></p>
+				<label id="answerChoiceDText" >Text D</label><p></p>
+				</p>
 			</div>
 			<div id="continueBtnDiv">
-				<input type="button" value="Continue" name="Continue" />
+				<input type="button" value="Continue" name="Continue" class="button" />
 			</div>	
 		</form>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

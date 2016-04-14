@@ -5,21 +5,6 @@
 // MOVE THESE INTO FUNCTIONS WHEN DONE!!  Except global variables that will be kept.
 var surveyQuestionsAnswers = [];
 var questionNumber;
-// Below are likely the ones that will be functional variables
-var form1 = document.form1;
-var form2 = document.form2;
-var surveyTitle = form1.surveyTitle;
-var backgroundColor = form1.backgroundColor;
-var headerBackgroundColor = form1.headerBackgroundColor;
-var buttonColor = form1.fontColor;
-var buttonColor = form1.buttonColor;
-var textAreaQuestion = form1.textAreaQuestion;
-var ExecuteSurvey = form1.ExecuteSurvey;
-var question = document.getElementById('question');
-var answerChoicesRadio = form1.answerChoicesRadio;
-var Continue = form2.Continue;
-
-
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Initialize UI
@@ -59,26 +44,55 @@ var updateQuestionsAnswers = function(questionNumber) {
 	document.getElementById('answerChoiceDText').innerHTML = surveyQuestionsAnswers[questionNumber-1].answers[3];
 };
 
-// Purpose: Assign the classes to elements once the user clicks on "Execute the Survey".
-var setUpSurveyCSS = function() {
+//// Purpose: Assign the classes to elements once the user clicks on "Execute the Survey".
+var setUpSurveyOptions = function() {
 	var form1 = document.form1;
-	var form2 = document.form2;
-	var surveyTitle = form1.surveyTitle;
 	var backgroundColor = form1.backgroundColor;
 	var headerBackgroundColor = form1.headerBackgroundColor;
+	var fontColor = form1.fontColor;
 	var buttonColor = form1.buttonColor;
-	var textAreaQuestion = form1.textAreaQuestion;
+	var surveyTitle = form1.surveyTitle;
+	var fontFamily = form1.fontFamily;
+	var fontSize = form1.fontSize;
 	
+	// Text
+	document.getElementById('surveyTitle').innerHTML=surveyTitle.value;
+	document.body.style.fontFamily=fontFamily.value;
+	document.body.style.fontSize=fontSize.value;
+		
+	// Colors
+	document.body.style.backgroundColor=backgroundColor.value;
+	document.body.style.color=fontColor.value;
 	var headers = document.querySelectorAll("h2");
 	for (var i = 0; i < headers.length; i++) {
 		headers[i].style.backgroundColor=headerBackgroundColor.value;
 	}
-	document.body.style.backgroundColor=backgroundColor.value;
+	var buttons = document.querySelectorAll(".button");
+	for (var i = 0; i < buttons.length; i++) {
+		buttons[i].style.color="white";
+		buttons[i].style.backgroundColor=buttonColor.value;
+		buttons[i].style.fontSize=fontSize.value * 0.4
+		buttons[i].style.fontFamily=fontFamily.value * 0.4
+	}	
 };
 
-// Purpose: Get the labels near each radio button to check the radio button.
+//// Purpose: Get the labels near each radio button to check the radio button.
 var turnOnRadioButton = function() {
-	
+	var radioButton;
+	if (this.firstChild.nodeType == 1) {
+		radioButton = this.firstChild;
+	} else {
+		radioButton = this.firstChild.nextSibling;
+	}
+	radioButton.checked="checked";
+};
+
+//// Purpose: Create event listeners 
+var setEventListenersForRadioButtonLabels = function() {
+	var radioElements = document.querySelectorAll(".answerChoice");
+	for (var i = 0; i < radioElements.length; i++) {
+		radioElements[i].addEventListener("click",turnOnRadioButton);
+	}
 };
 
 //// Purpose: Define the values in the progress bar based on how many questions there are.
@@ -110,7 +124,8 @@ ExecuteSurvey.addEventListener("click", function() {
 	form1.style.display = 'none';
 	fillSurveyQuestionsAnswers();
 	updateQuestionsAnswers(1);
-	setUpSurveyCSS();
+	setUpSurveyOptions();
+	setEventListenersForRadioButtonLabels();
 });
 
 Continue.addEventListener("click",function() {
@@ -126,6 +141,21 @@ Continue.addEventListener("click",function() {
 
 
 
+/*
 
-
-
+// Below are likely the ones that will be functional variables
+var form1 = document.form1;
+var form2 = document.form2;
+var surveyTitle = form1.surveyTitle;
+var fontFamily = form1.fontFamily;
+var fontSize = form1.fontSize;
+var backgroundColor = form1.backgroundColor;
+var headerBackgroundColor = form1.headerBackgroundColor;
+var fontColor = form1.fontColor;
+var buttonColor = form1.buttonColor;
+var textAreaQuestion = form1.textAreaQuestion;
+var ExecuteSurvey = form1.ExecuteSurvey;
+var question = document.getElementById('question');
+var answerChoicesRadio = form1.answerChoicesRadio;
+var Continue = form2.Continue;
+*/

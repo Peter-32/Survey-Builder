@@ -1,7 +1,6 @@
 /* Start of main formats */
 body {
 	font-size: 2em;
-	font-family: helvetica, sans-serif
 }
 
 input {
@@ -15,12 +14,21 @@ label {
 textarea {
 	font-size: .8em;
 }
+
 .title {
 	text-align: center;
 }
+
+.button {
+	font-size: .8em;
+}
+
 /* End of main formats */
 
 /* Start of form1 */
+.form1 {
+	font-family: helvetica, sans-serif;
+}
 
 .configurationsItem {
 	text-align: center;
