@@ -27,7 +27,7 @@ var fillSurveyQuestionsAnswers = function() {
 	// New lines identify the questions & answers
 	var rawSurveyQuestionsAnswers  = trimTextAreaQuestionValue.split(/\n/gi);
 	// Each question has seven new line characters, except the last one which has six.  Rounding shouldn't be needed.
-	var numberOfQuestions = ((rawSurveyQuestionsAnswers.length + 1)/7).toFixed(0);
+	var numberOfQuestions = ((rawSurveyQuestionsAnswers.length + 2)/7).toFixed(0);
 	for (var i = 0; i < numberOfQuestions; i++) {
 		surveyQuestionsAnswersObject = {
 			choice: "", question: rawSurveyQuestionsAnswers[7*i+0], answers: [rawSurveyQuestionsAnswers[7*i+2],
@@ -118,8 +118,18 @@ var hasCheckedABox = function() {
 };
 
 // Purpose: Check if the user asked at least one question (a minimum of 6 new line characters used)
-var userInputValidationMinimumQuestions = function() {
-	
+// Returns true if at least 6 new lines are present.
+var userInputValidationQuestionsAnswers = function() {
+	var textAreaQuestion = form1.textAreaQuestion;
+	var trimTextAreaQuestionValue = textAreaQuestion.value.trim();
+	// New lines identify the questions & answers
+	if(trimTextAreaQuestionValue.search(/\n/gi) == -1)
+		return false;
+	var countNewLines  = trimTextAreaQuestionValue.match(/\n/gi).length;
+	if ((countNewLines + 2) % 7 == 0 || countNewLines == 'undefined')
+		return true;
+	else
+		return false;
 };
 
 // Purpose: Stores the choice made by the user and unchecks the radio button.
@@ -165,12 +175,16 @@ var showResults = function() {
 
 //// Start the survey once "Execute the Survey" is clicked on.  This will only be clicked once.
 document.form1.ExecuteSurvey.addEventListener("click", function() {
-	form2.style.display = 'block';
-	form1.style.display = 'none';
-	fillSurveyQuestionsAnswers();
-	updateQuestionsAnswers(questionNumber); // always question number 1
-	setUpSurveyOptions();
-	setEventListenersForRadioButtonLabels();
+	if (userInputValidationQuestionsAnswers()) {
+		form2.style.display = 'block';
+		form1.style.display = 'none';
+		fillSurveyQuestionsAnswers();
+		updateQuestionsAnswers(questionNumber); // always question number 1
+		setUpSurveyOptions();
+		setEventListenersForRadioButtonLabels();
+	} else
+		alert('Please check your syntax for the questions and answers and try again.');
+	
 });
 
 // This takes you to the next question.
@@ -191,23 +205,3 @@ document.form2.Continue.addEventListener("click",function() {
 	} else 					//Otherwise the user is alerted.
 		alert('Please choose an answer before preceding.');	
 }); 
-
-
-/*
-
-// Below are likely the ones that will be functional variables
-var form1 = document.form1;
-var form2 = document.form2;
-var surveyTitle = form1.surveyTitle;
-var fontFamily = form1.fontFamily;
-var fontSize = form1.fontSize;
-var backgroundColor = form1.backgroundColor;
-var headerBackgroundColor = form1.headerBackgroundColor;
-var fontColor = form1.fontColor;
-var buttonColor = form1.buttonColor;
-var textAreaQuestion = form1.textAreaQuestion;
-var ExecuteSurvey = form1.ExecuteSurvey;
-var question = document.getElementById('question');
-var answerChoicesRadio = form1.answerChoicesRadio;
-var Continue = form2.Continue; 
-*/
