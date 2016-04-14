@@ -10,7 +10,7 @@
 			<h2 class="title">Survey-Builder</h2>
 			<div class="configurationsItem" id="firstItem">
 				<label for="surveyTitle">Survey Title</label>
-				<input type="text" name="surveyTitle" size="20" maxlength="255" placeholder="" />
+				<input type="text" name="surveyTitle" value="Survey" size="20" maxlength="255" placeholder="" />
 			</div>
 			<div class="configurationsItem" id="firstItem">
 				<label for="font" >Font</label>
@@ -19,6 +19,7 @@
 					<option value='"Arial Black"' >Arial Black
 					<option value='"Comic Sans MS"' >Comic Sans MS
 					<option value="Impact" >Impact
+					<option value="Helvetica" >Helvetica
 					<option value='"Lucida Sans Unicode"' >Lucida Sans Unicode
 					<option value='Tahoma' >Tahoma
 				</select>
@@ -67,7 +68,7 @@ Choice D here
 Next question here, etc.</textArea>
 			</div>
 			<div id="executeTheSurveyBtnDiv">
-				<input type="button" value="Execute the Survey" name="ExecuteSurvey" id="executeTheSurveyButton" />
+				<input type="button" value="Execute the Survey" name="ExecuteSurvey" />
 			</div>	
 		</form>
 			
@@ -80,18 +81,16 @@ Next question here, etc.</textArea>
 					<progress id="completionProgress" max="5" value="0"></progress>
 				</div>
 			</div>
-			<div id="question" class="title">
-				<h2>This will show once executed.  Replace for each question.  Save all answers, no scoring at the end.</h2>
-			</div>
+			<h2 id="question" class="title">This will show once executed.  Replace for each question.  Save all answers, no scoring at the end.</h2>
 			<div class="answerChoiceDiv">
 				<input type="radio" name="answerChoicesRadio" value="A" />
-				<label class="answerChoiceAText answerChoice">Text A</label><p></p>
+				<label id="answerChoiceAText" class="answerChoice">Text A</label><p></p>
 				<input type="radio" name="answerChoicesRadio" value="B" />
-				<label class="answerChoiceBText answerChoice">Text B</label><p></p>
+				<label id="answerChoiceBText" class="answerChoice">Text B</label><p></p>
 				<input type="radio" name="answerChoicesRadio" value="C" />
-				<label class="answerChoiceCText answerChoice">Text C</label><p></p>
+				<label id="answerChoiceCText" class="answerChoice">Text C</label><p></p>
 				<input type="radio" name="answerChoicesRadio" value="D" />
-				<label class="answerChoiceDText answerChoice">Text D</label><p></p>
+				<label id="answerChoiceDText" class="answerChoice">Text D</label><p></p>
 			</div>
 			<div id="continueBtnDiv">
 				<input type="button" value="Continue" name="Continue" />

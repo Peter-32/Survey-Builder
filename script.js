@@ -1,67 +1,98 @@
-var main = function() {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Define Variables
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	var surveyQuestionsAnswers = [];
-	var form1 = document.form1;
-	var form2 = document.form2;
-	var surveyTitle = form1.surveyTitle;
-	backgroundColor
-	headerBackgroundColor
-	buttonColor
-	ExecuteSurvey
-	answerChoicesRadio
-	
+
+// MOVE THESE INTO FUNCTIONS WHEN DONE!!  Except global variables that will be kept.
+var surveyQuestionsAnswers = [];
+var questionNumber;
+// Below are likely the ones that will be functional variables
+var form1 = document.form1;
+var form2 = document.form2;
+var surveyTitle = form1.surveyTitle;
+var backgroundColor = form1.backgroundColor;
+var headerBackgroundColor = form1.headerBackgroundColor;
+var buttonColor = form1.buttonColor;
+var textAreaQuestion = form1.textAreaQuestion;
+var ExecuteSurvey = form1.ExecuteSurvey;
+var question = document.getElementById('question');
+var answerChoicesRadio = form1.answerChoicesRadio;
+var Continue = form2.Continue;
+
+
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Initialize UI
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	// Initially hide the question HTML
-	$('.form2').hide();
 
-	// Start the survey once "Execute the Survey" is clicked on.
-	$('#executeTheSurveyButton').click(function() {
-		$('.form1').hide();
-		$('.form2').show();
-	});
-	
+//// Initially hide the question and answer HTML
+form2.style.display = 'none';
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//// Defining Functions and Callback Functions
+	//// Defining Main Functions and Callback Functions
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Purpose: Fills the surveyQuestionsAnswers array once the users clicks on "Execute the Survey".
-	// This is an array of objects.
-	var fillStoreQuestionsArray = function() {
-		
-	};
-	
-	// Purpose: Assign the classes to elements once the user clicks on "Execute the Survey".
-	var setUpSurveyCSS = function() {
-	
-	};
-	
-	// Purpose: Get the labels near each radio button to check the radio button.
-	var turnOnRadioButton = function() {
-	
-	};
-	
-	// Purpose: Define the values in the progress bar based on how many questions there are.
-	var
-	
-	// Purpose: To test printing out the question and answer text box to the screen
-	var testPrintQuestionAnswerString = function() {
-		
-	
-	};
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//// jQuery listener events
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Purpose: Fills the surveyQuestionsAnswers array once the users clicks on "Execute the Survey".
+//// This is an array of objects.
+var fillSurveyQuestionsAnswers = function() {
+	var surveyQuestionsAnswersObject;
+	var trimTextAreaQuestionValue = textAreaQuestion.value.trim();
+	// New lines identify the questions & answers
+	var rawSurveyQuestionsAnswers  = trimTextAreaQuestionValue.split(/\n/gi);
+	// Each question has seven new line characters, except the last one which has six.  Rounding shouldn't be needed.
+	var numberOfQuestions = ((rawSurveyQuestionsAnswers.length + 1)/7).toFixed(0);
+	for (var i = 0; i < numberOfQuestions; i++) {
+		surveyQuestionsAnswersObject = {
+			choice: "", question: rawSurveyQuestionsAnswers[7*i+0], answers: [rawSurveyQuestionsAnswers[7*i+2],
+			rawSurveyQuestionsAnswers[7*i+3],rawSurveyQuestionsAnswers[7*i+4],rawSurveyQuestionsAnswers[7*i+5]]}
+			
+		surveyQuestionsAnswers.push(surveyQuestionsAnswersObject);
+	}
+};
 
+// Update the questions and answers.
+var updateQuestionsAnswers = function(questionNumber) {
+	document.getElementById('question').innerHTML = surveyQuestionsAnswers[questionNumber-1].question;
+	document.getElementById('answerChoiceAText').innerHTML = surveyQuestionsAnswers[questionNumber-1].answers[0];
+	document.getElementById('answerChoiceBText').innerHTML = surveyQuestionsAnswers[questionNumber-1].answers[1];
+	document.getElementById('answerChoiceCText').innerHTML = surveyQuestionsAnswers[questionNumber-1].answers[2];
+	document.getElementById('answerChoiceDText').innerHTML = surveyQuestionsAnswers[questionNumber-1].answers[3];
+};
+
+// Purpose: Assign the classes to elements once the user clicks on "Execute the Survey".
+var setUpSurveyCSS = function() {
+	
+};
+
+// Purpose: Get the labels near each radio button to check the radio button.
+var turnOnRadioButton = function() {
 
 };
 
-$(document).ready(main);
+// Purpose: Define the values in the progress bar based on how many questions there are.
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//// Main Event Listeners and Function Calls
+	////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+// Start the survey once "Execute the Survey" is clicked on.
+ExecuteSurvey.addEventListener("click", function() {
+	form2.style.display = 'block';
+	form1.style.display = 'none';
+	fillSurveyQuestionsAnswers();
+	updateQuestionsAnswers(1);
+});
+
+Continue.addEventListener("click",function() {
+
+}); 
+
+
+
+
+
+
+
+
+
