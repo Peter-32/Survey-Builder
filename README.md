@@ -10,4 +10,4 @@ How to use:
 
 When you open the application you can optionally define some styling attributes for the survey.  You define the questions and answers in the box provided.
  
-To create the survey click on the "Create the Survey" button.
+The button at the bottom of the page creates the survey.
