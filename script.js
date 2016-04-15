@@ -12,29 +12,54 @@ var questionNumber = 1;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //// Initially hide the question and answer HTML
-form2.style.display = 'none';
+document.form2.style.display = 'none';
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//// Defining Main Functions and Callback Functions
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//// Purpose: Fills the surveyQuestionsAnswers array once the users clicks on "Execute the Survey".
-//// This is an array of objects and will only be filled once.
-var fillSurveyQuestionsAnswers = function() {
-	var textAreaQuestion = form1.textAreaQuestion;
+//// Purpose: Fills the surveyQuestionsAnswers array once the users clicks on "Create the Survey".
+//// If the array of questions and answers is invalid the array is wiped and the user can't continue.
+//// Returns true if valid questions and answers are found.
+var validateInputsAndStoreQuestions = function() {
+	var textAreaQuestion = document.form1.textAreaQuestion;
 	var surveyQuestionsAnswersObject;
 	var trimTextAreaQuestionValue = textAreaQuestion.value.trim();
 	// New lines identify the questions & answers
 	var rawSurveyQuestionsAnswers  = trimTextAreaQuestionValue.split(/\n/gi);
 	// Each question has seven new line characters, except the last one which has six.  Rounding shouldn't be needed.
-	var numberOfQuestions = ((rawSurveyQuestionsAnswers.length + 2)/7).toFixed(0);
+	if ((rawSurveyQuestionsAnswers.length + 1)%7 != 0)
+		return false;
+	var numberOfQuestions = ((rawSurveyQuestionsAnswers.length + 1)/7).toFixed(0);
 	for (var i = 0; i < numberOfQuestions; i++) {
 		surveyQuestionsAnswersObject = {
 			choice: "", question: rawSurveyQuestionsAnswers[7*i+0], answers: [rawSurveyQuestionsAnswers[7*i+2],
 			rawSurveyQuestionsAnswers[7*i+3],rawSurveyQuestionsAnswers[7*i+4],rawSurveyQuestionsAnswers[7*i+5]]}
-			
 		surveyQuestionsAnswers.push(surveyQuestionsAnswersObject);
 	}
+	// Check if questions and answers are set up correctly.
+	for (var i = 0; i < surveyQuestionsAnswers.length; i++) {
+		if (!surveyQuestionsAnswers[i].question.trim()) {
+			surveyQuestionsAnswers = [];
+			return false;
+		}
+		for (var j = 0; j < 4; j++) {
+			//alert(!surveyQuestionsAnswers[i].answers[j].trim());
+			if (!surveyQuestionsAnswers[i].answers[j].trim()) {
+				surveyQuestionsAnswers = [];
+				return false;
+			}
+		}	
+	}
+	// Check if colors are length 7 as expected.
+	if (document.form1.backgroundColor.value.length != 7 ||
+	document.form1.headerBackgroundColor.value.length != 7 ||
+	document.form1.fontColor.value.length != 7 ||
+	document.form1.buttonColor.value.length != 7) {
+		surveyQuestionsAnswers = [];
+		return false;
+	}
+	return true;
 };
 
 //// Update the questions and answers.
@@ -46,16 +71,16 @@ var updateQuestionsAnswers = function(questionNumber) {
 	document.getElementById('answerChoiceDText').innerHTML = surveyQuestionsAnswers[questionNumber-1].answers[3];
 };
 
-//// Purpose: Assign the classes to elements once the user clicks on "Execute the Survey".
+//// Purpose: Assign the classes to elements once the user clicks on "Create the Survey".
+//// "SurveyOptions" are the css styling that the user chooses at the start.
 var setUpSurveyOptions = function() {
-	var form1 = document.form1;
-	var backgroundColor = form1.backgroundColor;
-	var headerBackgroundColor = form1.headerBackgroundColor;
-	var fontColor = form1.fontColor;
-	var buttonColor = form1.buttonColor;
-	var surveyTitle = form1.surveyTitle;
-	var fontFamily = form1.fontFamily;
-	var fontSize = form1.fontSize;
+	var backgroundColor = document.form1.backgroundColor;
+	var headerBackgroundColor = document.form1.headerBackgroundColor;
+	var fontColor = document.form1.fontColor;
+	var buttonColor = document.form1.buttonColor;
+	var surveyTitle = document.form1.surveyTitle;
+	var fontFamily = document.form1.fontFamily;
+	var fontSize = document.form1.fontSize;
 	
 	// Text
 	document.getElementById('surveyTitle').innerHTML=surveyTitle.value;
@@ -78,7 +103,7 @@ var setUpSurveyOptions = function() {
 	}	
 };
 
-//// Purpose: Get the labels near each radio button to check the radio button.
+//// Purpose: Check the radio button next to the radio button label that is clicked on.
 var turnOnRadioButton = function() {
 	var radioButton;
 	if (this.firstChild.nodeType == 1)
@@ -86,14 +111,6 @@ var turnOnRadioButton = function() {
 	else
 		radioButton = this.firstChild.nextSibling;
 	radioButton.checked="checked";
-};
-
-//// Purpose: Create event listeners 
-var setEventListenersForRadioButtonLabels = function() {
-	var radioElements = document.querySelectorAll(".answerChoice");
-	for (var i = 0; i < radioElements.length; i++) {
-		radioElements[i].addEventListener("click",turnOnRadioButton);
-	}
 };
 
 //// Purpose: Define the values in the progress bar based on how many questions there are.
@@ -117,22 +134,7 @@ var hasCheckedABox = function() {
 	return false;
 };
 
-// Purpose: Check if the user asked at least one question (a minimum of 6 new line characters used)
-// Returns true if at least 6 new lines are present.
-var userInputValidationQuestionsAnswers = function() {
-	var textAreaQuestion = form1.textAreaQuestion;
-	var trimTextAreaQuestionValue = textAreaQuestion.value.trim();
-	// New lines identify the questions & answers
-	if(trimTextAreaQuestionValue.search(/\n/gi) == -1)
-		return false;
-	var countNewLines  = trimTextAreaQuestionValue.match(/\n/gi).length;
-	if ((countNewLines + 2) % 7 == 0 || countNewLines == 'undefined')
-		return true;
-	else
-		return false;
-};
-
-// Purpose: Stores the choice made by the user and unchecks the radio button.
+//// Purpose: Stores the choice made by the user and unchecks the radio button.
 var storeAnswerChoiceAndUncheck = function(questionNumber) {
 	var radios = form2.answerChoicesRadio;
 	var currentQuestion = surveyQuestionsAnswers[questionNumber-1]
@@ -148,7 +150,7 @@ var storeAnswerChoiceAndUncheck = function(questionNumber) {
 	}
 };
 
-// Purpose: Show the results of the survey
+//// Purpose: Show the results of the survey
 var showResults = function() {
 	var h4Element;
 	var text;
@@ -166,29 +168,10 @@ var showResults = function() {
 		h4Element.appendChild(text);
 		document.body.appendChild(h4Element);
 	}
-	
 };
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//// Main Event Listeners and Function Calls
-	////////////////////////////////////////////////////////////////////////////////////////////////////////	
-
-//// Start the survey once "Execute the Survey" is clicked on.  This will only be clicked once.
-document.form1.ExecuteSurvey.addEventListener("click", function() {
-	if (userInputValidationQuestionsAnswers()) {
-		form2.style.display = 'block';
-		form1.style.display = 'none';
-		fillSurveyQuestionsAnswers();
-		updateQuestionsAnswers(questionNumber); // always question number 1
-		setUpSurveyOptions();
-		setEventListenersForRadioButtonLabels();
-	} else
-		alert('Please check your syntax for the questions and answers and try again.');
-	
-});
-
-// This takes you to the next question.
-document.form2.Continue.addEventListener("click",function() {
+//// Purpose: The user hit the continue button.
+var hitContinue = function() {
 	if (hasCheckedABox()) { // If true then proceed.
 		// Store the answer and uncheck
 		storeAnswerChoiceAndUncheck(questionNumber)
@@ -204,4 +187,34 @@ document.form2.Continue.addEventListener("click",function() {
 			showResults();
 	} else 					//Otherwise the user is alerted.
 		alert('Please choose an answer before preceding.');	
-}); 
+}; 
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//// Main Event Listeners and Function Calls
+	////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+//// Purpose: Create event listeners for the div around the radio buttons.
+var setExtraEventListeners = function() {
+	var radioDivElements = document.querySelectorAll(".answerChoice");
+	for (var i = 0; i < radioDivElements.length; i++) {
+		radioDivElements[i].addEventListener("click",turnOnRadioButton);
+	}
+};
+
+//// Start the survey once "Create the Survey" is clicked on.  This will only be clicked once.
+//// Only allows the survey to be created if there are valid inputs.
+document.form1.createSurvey.addEventListener("click", function() {
+	if (validateInputsAndStoreQuestions()) {
+		document.form2.style.display = 'block';
+		document.form1.style.display = 'none';
+		updateQuestionsAnswers(questionNumber); // always question number 1
+		setUpSurveyOptions();
+		setExtraEventListeners();
+	} else
+		alert('Please check your syntax for your inputs and try again.');
+	
+});
+	
+// This takes you to the next question.
+document.form2.Continue.addEventListener("click",hitContinue);
+

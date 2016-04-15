@@ -58,7 +58,7 @@
 				<li>and one empty row between the last choice and the next question</li>
 			</ul>
 			<div id="createQuestionsDiv">
-				<textarea name="textAreaQuestion" cols="40" rows="20">This is where you put your question.
+				<textarea name="textAreaQuestion" cols="40" rows="20" placeholder="This is where you put your question.
 
 Choice A here
 Choice B here
@@ -72,10 +72,10 @@ Choice B here
 Choice C here
 Choice D here
 
-Next question here, etc.</textArea>
+Next question here, etc."></textArea>
 			</div>
-			<div id="executeTheSurveyBtnDiv">
-				<input type="button" value="Execute the Survey" name="ExecuteSurvey" class="button"/>
+			<div id="createTheSurveyBtnDiv">
+				<input type="button" value="Create the Survey" name="createSurvey" class="button"/>
 			</div>	
 		</form>
 			
@@ -88,23 +88,23 @@ Next question here, etc.</textArea>
 					<progress id="completionProgress" value="0"></progress>
 				</div>
 			</div>
-			<h2 id="question" class="title">This will show once executed.  Replace for each question.  Save all answers, no scoring at the end.</h2>
+			<h2 id="question" class="title"></h2>
 			<div id="answerChoiceDiv">
 				<p class="answerChoice">
-					<input type="radio" name="answerChoicesRadio" value="A" />
-					<label id="answerChoiceAText" >Text A</label>
+					<input type="radio" name="answerChoicesRadio" id="answerChoiceA" value="A" />
+					<label id="answerChoiceAText" ></label>
 				</p>
 				<p class="answerChoice">
-				<input type="radio" name="answerChoicesRadio" value="B" />
-				<label id="answerChoiceBText" >Text B</label><p></p>
+				<input type="radio" name="answerChoicesRadio" id="answerChoiceB" value="B" />
+				<label id="answerChoiceBText" ></label><p></p>
 				</p>
 				<p class="answerChoice">
-				<input type="radio" name="answerChoicesRadio" value="C" />
-				<label id="answerChoiceCText" >Text C</label><p></p>
+				<input type="radio" name="answerChoicesRadio" id="answerChoiceC" value="C" />
+				<label id="answerChoiceCText" ></label><p></p>
 				</p>
 				<p class="answerChoice">
-				<input type="radio" name="answerChoicesRadio" value="D" />
-				<label id="answerChoiceDText" >Text D</label><p></p>
+				<input type="radio" name="answerChoicesRadio" id="answerChoiceD" value="D" />
+				<label id="answerChoiceDText" ></label><p></p>
 				</p>
 			</div>
 			<div id="continueBtnDiv">  
