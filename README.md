@@ -1,4 +1,4 @@
-Survey-Builder
+Survey Builder
 ==============
 
 Survey-Builder lets you build and style a survey to be taken by someone who has access to your computer.  
